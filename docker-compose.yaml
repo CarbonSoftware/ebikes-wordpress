@@ -1,35 +1,35 @@
-Version: '3'
+version: '3'
 
 services:
-	# Database
-	db:
-		image: mysql:5.7
-		volumes:
-			- db_data:/var/lib/mysql
-			restart: always
-			enviroment:
-				MYSQL_ROOT_PASSWORD: password
-				MYSQL_DATABASE: wordpress
-				MYSQL_USER: admin
-				MYSQL_ROOT_PASSWORD: admin123
-			networks:
-				- wpsite
-		# wordpress
-		wordpress:
-			depends_on:
-				- db
-			image: wordpress:latast
-			ports:
-				- '8000:80'
-			restart: always
-			volumes: ['./:/var/www/html']
-			enviroment:
-				WORDPRESS_DB_HOST: db:3306
-				WORDPRESS_DB_USER: admin
-				WORDPRESS_DB_PASSWORD: admin123
-			networks:
-				- wpsite
+# Database
+ db:
+  image: mysql:5.7
+  volumes:
+   - db_data:/var/lib/mysql
+  restart: always
+  enviroment:
+   MYSQL_ROOT_PASSWORD: password
+   MYSQL_DATABASE: wordpress
+   MYSQL_USER: admin
+   MYSQL_ROOT_PASSWORD: password
+  networks:
+   - wpsite
+ # wordpress
+ wordpress:
+  depends_on:
+   - db
+  image: wordpress:latast
+  ports:
+  - '8000:80'
+  restart: always
+  volumes: ['./:/var/www/html']
+  enviroment:
+   WORDPRESS_DB_HOST: db:3306
+   WORDPRESS_DB_USER: admin
+   WORDPRESS_DB_PASSWORD: password
+  networks:
+   - wpsite
 networks:
-	wpsite:
+ wpsite:
 volumes:
-	db_data:
+ db_data:
